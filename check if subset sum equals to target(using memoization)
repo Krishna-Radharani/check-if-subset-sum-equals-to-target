@@ -1,0 +1,18 @@
+class Solution{   
+public:
+    bool recursion(int index,int target,vector<int>&arr,vector<vector<bool>>&dp){
+    //base case
+    if(target==0) return true;
+    if(index==0) return arr[0]==target;
+    if(dp[index][target]!=false) return dp[index][target]; 
+    bool not_take=recursion(index-1,target,arr,dp);
+    bool take=arr[index]<=target?recursion(index-1,target-arr[index],arr,dp):false;
+    
+    return dp[index][target]=not_take | take;
+    }
+    bool isSubsetSum(vector<int>arr, int sum){
+        // code here 
+        vector<vector<bool>>dp(arr.size(),vector<bool>(sum+1,false));
+        return recursion(arr.size()-1,sum,arr,dp);
+    }
+};
